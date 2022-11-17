@@ -1,5 +1,11 @@
+from rest_framework import generics
 from django.shortcuts import render
-from .models import Card
+from .serializers import CardSerializer, CardCreateSerializer, MyCardSerializer, FavoriteSerializer, FriendsSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from .models import Card, MyCard, Favorite, Friends
 
 
 # Create your views here.
@@ -8,9 +14,6 @@ def api_root(request, format=None):
     return Response({
         'card_list': reverse('card_list', request=request, format=format),
     })
-
-
-
 
 
 class CardList(generics.ListCreateAPIView): 
@@ -27,7 +30,29 @@ class CardList(generics.ListCreateAPIView):
 
 
 class MyCardList(generics.ListCreateAPIView):
-    pass
+    permission_classes = [IsAuthenticated]
+    queryset = MyCard.objects.all()
+    serializer_class = MyCardSerializer
+
+    def get_queryset(self):
+        queryset = MyCard.objects.filter(owner=self.request.user.pk)
+        return queryset
+
+
+
+class FavoriteList(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
+
+    def get_queryset(self):
+        queryset = Favorite.objects.filter(follower=self.request.user.pk)
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(favorite=self.request.user)
+
+
 
 class FriendsCardList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
@@ -35,9 +60,9 @@ class FriendsCardList(generics.ListCreateAPIView):
     serializer_class = FriendsSerializer
 
     def get_queryset(self):
-        queryset = Friends.objects.filter(follower=self.request.user.pk)
+        queryset = Friends.objects.filter(friends=self.request.user.pk)
         return queryset
 
     def perform_create(self, serializer):
-        serializer.save(follower=self.request.user)
+        serializer.save(friends=self.request.user)
 
