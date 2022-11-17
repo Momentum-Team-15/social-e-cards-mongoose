@@ -21,7 +21,7 @@ class CardList(generics.ListCreateAPIView):
     serializer_class = CardSerializer
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(user=self.request.user)
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -35,7 +35,7 @@ class UserList(generics.ListCreateAPIView):
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        queryset = User.objects.filter(owner=self.request.user.pk)
+        queryset = User.objects.filter(user=self.request.user.pk)
         return queryset
 
 
