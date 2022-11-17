@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cards/', views.CardList.as_view(), name='card-list'),
     path('users', views.UserList.as_view(), name='users-list'),
-    path('cards/friends', views.FriendsCardList.as_view(), name='friends-card-list'),
+    path('cards/friend', views.FriendCardList.as_view(), name='friend-card-list'),
     path('cards/favorite', views.FavoriteList.as_view(), name='favorite-card'),
 ]
