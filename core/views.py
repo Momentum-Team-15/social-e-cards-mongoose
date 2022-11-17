@@ -1,11 +1,11 @@
 from rest_framework import generics
 from django.shortcuts import render
-from .serializers import CardSerializer, CardCreateSerializer, MyCardSerializer, FavoriteSerializer, FriendsSerializer
+from .serializers import CardSerializer, CardCreateSerializer, UserSerializer, FavoriteSerializer, FriendsSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from .models import Card, MyCard, Favorite, Friends
+from .models import Card, User, Favorite, Friends
 
 
 # Create your views here.
@@ -29,13 +29,13 @@ class CardList(generics.ListCreateAPIView):
         return self.serializer_class
 
 
-class MyCardList(generics.ListCreateAPIView):
+class UserList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = MyCard.objects.all()
-    serializer_class = MyCardSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
     def get_queryset(self):
-        queryset = MyCard.objects.filter(owner=self.request.user.pk)
+        queryset = User.objects.filter(owner=self.request.user.pk)
         return queryset
 
 
