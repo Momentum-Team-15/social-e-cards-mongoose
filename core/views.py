@@ -1,11 +1,11 @@
 from rest_framework import generics
 from django.shortcuts import render
-from .serializers import CardSerializer, CardCreateSerializer, UserSerializer, FavoriteSerializer, FriendsSerializer
+from .serializers import CardSerializer, UserSerializer, FavoriteSerializer, FriendSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from .models import Card, User, Favorite, Friends
+from .models import Card, User, Favorite, Friend
 
 
 # Create your views here.
@@ -25,7 +25,7 @@ class CardList(generics.ListCreateAPIView):
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
-            return CardCreateSerializer
+            return CardSerializer
         return self.serializer_class
 
 
@@ -54,15 +54,15 @@ class FavoriteList(generics.ListCreateAPIView):
 
 
 
-class FriendsCardList(generics.ListCreateAPIView):
+class FriendCardList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Friends.objects.all()
-    serializer_class = FriendsSerializer
+    queryset = Friend.objects.all()
+    serializer_class = FriendSerializer
 
     def get_queryset(self):
-        queryset = Friends.objects.filter(friends=self.request.user.pk)
+        queryset = Friend.objects.filter(friend=self.request.user.pk)
         return queryset
 
     def perform_create(self, serializer):
-        serializer.save(friends=self.request.user)
+        serializer.save(friend=self.request.user)
 
