@@ -14,9 +14,9 @@ class CardSerializer(serializers.ModelSerializer):
 class FriendSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friend
-        fields = ('user')
+        fields = ('friend',)
 
 class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorite
-        fields = ('card','user','created_at')
+        fields = ('card','created_at', 'user')

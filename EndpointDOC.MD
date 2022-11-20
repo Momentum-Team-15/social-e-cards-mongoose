@@ -49,4 +49,34 @@ fields required:
 
 ----------
 
+cards/favorite
 
+POST request
+
+fields required:
+{
+	"card": "<pk>"
+}
+
+GET request
+
+{
+	"card": <pk>,
+	"created_at": "",
+	"user": <pk>
+}
+----------------
+
+users/friend
+
+POST request
+
+fields required:
+{
+	"friend":"<pk>"
+}
+
+GET request:
+{
+	"friend":"<pk>"
+}
