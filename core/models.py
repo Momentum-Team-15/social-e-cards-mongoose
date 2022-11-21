@@ -36,11 +36,12 @@ class Card(models.Model):
 
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='favorites')
-    card = models.ForeignKey(Card, on_delete=models.CASCADE, null=True, blank=True, related_name='favorites')
+    card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name='favorites')
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Friend(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,  related_name='friends')
+    friend = models.ForeignKey(User, on_delete=models.CASCADE, )
 
     def __str__(self):
         return self.user.name

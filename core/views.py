@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, request
 from django.shortcuts import render
 from .serializers import CardSerializer, UserSerializer, FavoriteSerializer, FriendSerializer
 from rest_framework.decorators import api_view
@@ -42,27 +42,26 @@ class UserList(generics.ListCreateAPIView):
 
 class FavoriteList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
+    queryset = Favorite.objects.all()
 
     def get_queryset(self):
-        queryset = Favorite.objects.filter(follower=self.request.user.pk)
-        return queryset
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        serializer.save(favorite=self.request.user)
+        serializer.save(user=self.request.user)
 
 
 
 class FriendCardList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Friend.objects.all()
     serializer_class = FriendSerializer
+    queryset = Friend.objects.all()
 
     def get_queryset(self):
-        queryset = Friend.objects.filter(friend=self.request.user.pk)
+        queryset = Friend.objects.filter(user=self.request.user)
         return queryset
 
     def perform_create(self, serializer):
-        serializer.save(friend=self.request.user)
-
+        serializer.save(user=self.request.user)
