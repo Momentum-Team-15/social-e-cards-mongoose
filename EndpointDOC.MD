@@ -80,3 +80,37 @@ GET request:
 {
 	"friend":"<pk>"
 }
+
+---------------
+
+auth/users/ 
+
+GET request 
+
+{
+		"email": "",
+		"id": 1,
+		"username": "admin"
+	}
+]
+
+Post Request
+
+{
+	"username": [
+		"This field is required."
+	],
+	"password": [
+		"This field is required."
+	]
+}
+
+----------------
+
+/auth/users/me/
+
+GET Request 
+
+    "email": "",
+    "id": 1,
+    "username": "admin"
