@@ -3,18 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Basic models for now, we can add stuff later
 
-COLOR_CHOICES = {
-('GRAY', 'GRAY'),
-('RED', 'RED'),
-('ORANGE', 'ORANGE'),
-('YELLOW', 'YELLOW'),
-('BLUE', 'BLUE'),
-('GREEN', 'GREEN'),
-('PURPLE', 'PURPLE'),
-('BLACK', 'BLACK'),
-('GOLD', 'GOLD'),
-('DARKRED', 'DARKRED')
-}
+
 
 
 class User(AbstractUser):
@@ -22,6 +11,18 @@ class User(AbstractUser):
     name = models.CharField(max_length=30, null=True, blank=True)
 
 class Card(models.Model): 
+    COLOR_CHOICES = {
+        ('GRAY', 'GRAY'),
+        ('RED', 'RED'),
+        ('ORANGE', 'ORANGE'),
+        ('YELLOW', 'YELLOW'),
+        ('BLUE', 'BLUE'),
+        ('GREEN', 'GREEN'),
+        ('PURPLE', 'PURPLE'),
+        ('BLACK', 'BLACK'),
+        ('GOLD', 'GOLD'),
+        ('DARKRED', 'DARKRED')
+    }
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=50)
     card_msg = models.TextField(max_length=500, default='')

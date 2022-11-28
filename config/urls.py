@@ -21,8 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cards/', views.CardList.as_view(), name='card-list'),
     path('users', views.UserList.as_view(), name='users-list'),
-    path('users/friend', views.FriendCardList.as_view(), name='friend-card-list'),
+    path('users/friend', views.FriendList.as_view(), name='friend-list'),
     path('cards/favorite', views.FavoriteList.as_view(), name='favorite-card'),
+    path('cards/friends', views.FriendCardList.as_view(), name='friend-card-list'),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 ]

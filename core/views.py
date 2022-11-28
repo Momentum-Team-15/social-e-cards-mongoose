@@ -1,3 +1,4 @@
+from django.db.models.query import EmptyQuerySet
 from rest_framework import generics, request
 from django.shortcuts import render
 from .serializers import CardSerializer, UserSerializer, FavoriteSerializer, FriendSerializer
@@ -6,7 +7,6 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import Card, User, Favorite, Friend
-
 
 # Create your views here.
 @api_view(['GET'])
@@ -46,15 +46,15 @@ class FavoriteList(generics.ListCreateAPIView):
     queryset = Favorite.objects.all()
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(user=self.request.user)
+        queryset = Favorite.objects.filter(user=self.request.user)
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 
 
-class FriendCardList(generics.ListCreateAPIView):
+class FriendList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = FriendSerializer
     queryset = Friend.objects.all()
@@ -65,3 +65,22 @@ class FriendCardList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class FriendCardList(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CardSerializer
+
+    def get_queryset(self):
+        queryset = Card.objects.none()
+        friends = Friend.objects.filter(user=self.request.user).values_list('friend')
+        for friend in friends:
+            IndivCards = Card.objects.filter(user=friend)
+            queryset = queryset | IndivCards
+        
+        queryset.order_by('created_at')
+        return queryset
+
+
+        
+
+    
