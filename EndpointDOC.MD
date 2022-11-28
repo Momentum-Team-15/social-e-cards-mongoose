@@ -80,3 +80,56 @@ GET request:
 {
 	"friend":"<pk>"
 }
+
+---------------
+
+auth/users/ 
+
+GET request 
+
+{
+		"email": "",
+		"id": 1,
+		"username": "admin"
+	}
+]
+
+Post Request
+
+{
+	"username": [
+		"This field is required."
+	],
+	"password": [
+		"This field is required."
+	]
+}
+
+----------------
+
+/auth/users/me/
+
+GET Request 
+
+    "email": "",
+    "id": 1,
+    "username": "admin"
+
+-------
+
+/cards/me
+
+GET 
+
+[
+    {
+        "title": "Christmas",
+        "user": 1,
+        "font_color": "GOLD",
+        "color": "RED",
+        "card_msg": "Happy holidays",
+        "created_at": "2022-11-17T21:13:46.461813Z",
+        "updated_at": "2022-11-17T21:13:46.461843Z",
+        "published": false
+    }
+]

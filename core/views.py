@@ -15,6 +15,13 @@ def api_root(request, format=None):
         'card_list': reverse('card_list', request=request, format=format),
     })
 
+class CardUser(generics.ListCreateAPIView):
+    queryset = Card.objects.all()
+    serializer_class = CardSerializer
+    
+    def get_queryset(self):
+        return Card.objects.filter(user=self.request.user)
+
 
 class CardList(generics.ListCreateAPIView): 
     queryset = Card.objects.all()
@@ -84,3 +91,10 @@ class FriendCardList(generics.RetrieveAPIView):
         
 
     
+
+class CardUser(generics.ListCreateAPIView):
+    queryset = Card.objects.all()
+    serializer_class = CardSerializer
+    
+    def get_queryset(self):
+        return Card.objects.filter(user=self.request.user)
