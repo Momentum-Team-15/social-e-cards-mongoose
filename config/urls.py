@@ -26,4 +26,7 @@ urlpatterns = [
     path('cards/favorite', views.FavoriteList.as_view(), name='favorite-card'),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
+    path('comments/', views.CommentList.as_view(), name='comment_list'),
+    path('comments/<int:pk>/', views.CommentDetail.as_view(), name='comment_detail'),
 ]
+
