@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Card, Friend, Favorite
+from .models import User, Card, Friend, Favorite, Comment
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ('title','user','font_color', 'color', 'card_msg','created_at','updated_at','published', 'text_alignment')
+        fields = ('title','user','font_color', 'color', 'card_msg','created_at','updated_at','published', 'text_alignment', 'comments')
 
 class FriendSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,3 +20,11 @@ class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorite
         fields = ('card','created_at', 'user')
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    comment_owner = UserSerializer(read_only=True)
+    
+    class Meta:
+        model = Comment
+        fields = ('pk', 'comment_owner', 'card', 'text')
