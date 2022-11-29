@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ('title','user','font_color', 'color', 'card_msg','created_at','updated_at','published')
+        fields = ('title','user','font_color', 'color', 'card_msg','created_at','updated_at','published', 'text_alignment')
 
 class FriendSerializer(serializers.ModelSerializer):
     class Meta:

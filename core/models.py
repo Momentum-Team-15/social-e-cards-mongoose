@@ -8,6 +8,8 @@ class User(AbstractUser):
     name = models.CharField(max_length=30, null=True, blank=True)
 
 class Card(models.Model): 
+
+
     COLOR_CHOICES = [
         ('GRAY', 'GRAY'),
         ('RED', 'RED'),
@@ -21,6 +23,16 @@ class Card(models.Model):
         ('DARKRED', 'DARKRED')
     ]
 
+
+    TEXT_ALIGNMENT_CHOICES =[
+        
+        ('CENTER', 'CENTER'),
+        ('RIGHT', 'RIGHT'),
+        ('LEFT', 'LEFT')
+    
+    ]
+
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=50)
     card_msg = models.TextField(max_length=500, default='')
@@ -29,6 +41,7 @@ class Card(models.Model):
     published = models.BooleanField(default=False)
     color = models.CharField(max_length=50, choices=COLOR_CHOICES, default='WHITE')
     font_color = models.CharField(max_length=50, choices=COLOR_CHOICES, default='BLACK')
+    text_alignment = models.CharField(max_length=50,choices=TEXT_ALIGNMENT_CHOICES)
 
     
     
