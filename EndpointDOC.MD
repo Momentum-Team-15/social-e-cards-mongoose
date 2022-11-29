@@ -54,6 +54,7 @@ cards/favorite
 POST request
 
 fields required:
+
 {
 	"card": "<pk>"
 }
