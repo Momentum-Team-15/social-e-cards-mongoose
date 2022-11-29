@@ -1,12 +1,12 @@
 from django.db.models.query import EmptyQuerySet
 from rest_framework import generics, request
 from django.shortcuts import render
-from .serializers import CardSerializer, UserSerializer, FavoriteSerializer, FriendSerializer
+from .serializers import CardSerializer, UserSerializer, FavoriteSerializer, FriendSerializer, CommentSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from .models import Card, User, Favorite, Friend
+from .models import Card, User, Favorite, Friend, Comment
 
 # Create your views here.
 @api_view(['GET'])
@@ -98,3 +98,16 @@ class CardUser(generics.ListCreateAPIView):
     
     def get_queryset(self):
         return Card.objects.filter(user=self.request.user)
+
+
+class CommentList(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(comment_owner=self.request.user)
+
+
+class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
