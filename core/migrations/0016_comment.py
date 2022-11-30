@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('core', '0015_card_text_alignment'),
-        ('core', '0016_alter_card_color_alter_card_font_color')
+        
     ]
 
     operations = [
