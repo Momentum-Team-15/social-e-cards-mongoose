@@ -9,6 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('core', '0015_card_text_alignment'),
+        
     ]
 
     operations = [
