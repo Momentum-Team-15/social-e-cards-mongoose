@@ -7,6 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('core', '0016_alter_card_color_alter_card_font_color'),
+        ('core', '0017_alter_card_color_alter_card_font_color_and_more')
     ]
 
     operations = [
