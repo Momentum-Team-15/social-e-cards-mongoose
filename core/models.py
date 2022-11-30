@@ -5,7 +5,8 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     bio = models.TextField(max_length=300, null=True, blank=True)
-    name = models.CharField(max_length=30, null=True, blank=True)
+    name = models.TextField(max_length=30, null=True, blank=True)
+    password = models.CharField(max_length=30, null=True, blank=True)
 
 class Card(models.Model): 
 
