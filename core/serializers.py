@@ -1,10 +1,11 @@
 from rest_framework import serializers
+from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
 from .models import User, Card, Friend, Favorite, Comment
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('name','bio')
+        fields = ('name','bio', 'username')
 
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,3 +29,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ('pk', 'comment_owner', 'card', 'text')
+
+class UserRegistrationSerializer(BaseUserRegistrationSerializer):
+    class Meta(BaseUserRegistrationSerializer.Meta):
+        fields = ("name", "password", "username", "bio")

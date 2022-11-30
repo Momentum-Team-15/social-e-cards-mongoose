@@ -134,3 +134,66 @@ GET
         "published": false
     }
 ]
+----------------------------------------------------------------
+/cards/<pk>
+:GET, PATCH, PUT, DELETE
+
+GET
+{
+	"title": "",
+	"user": <userPk>,
+	"font_color": "BLACK",
+	"color": "WHITE",
+	"card_msg": "",
+	"created_at": "2022-11-20T19:22:01.797201Z",
+	"updated_at": "2022-11-29T22:31:01.906774Z",
+	"published": false,
+	"text_alignment": "1",
+	"comments": []
+}
+PATCH(Just put whih field you want to update in.)Ex:
+{
+	"card_msg":"This is a new card message",
+}
+DELETE
+{
+
+}
+PUT(Similar to PATCH but you have to rebuild the entire card)
+(required fields):
+{
+	"title":"",
+	"text_alignment":"",
+	"comments":""
+	
+}
+----------------------------------------------------------------
+/users/create
+POST
+{
+	"username": "",
+	"password": "",
+	"name": "",
+	"bio": ""
+}
+
+/users/<pk>
+:GET, PATCH, PUT, DELETE
+
+GET
+{
+	"name": "Steve",
+	"bio": null,
+	"username": ""
+}
+PATCH
+{
+	"bio": "This is a new bio"
+}
+PUT
+(only username is required)
+{
+	"username": "New Username",
+	"bio":"This is the same bio",
+	"name":"This is the same name"
+}
