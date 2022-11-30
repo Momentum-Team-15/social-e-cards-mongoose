@@ -6,8 +6,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0017_alter_card_text_alignment'),
-        ('core', '0018_merge_20221130_1940'),
+        ('core', '0017_alter_card_color_alter_card_font_color_and_more'),
+        ('core', '0018_alter_user_name_alter_user_password'),
     ]
 
     operations = [
