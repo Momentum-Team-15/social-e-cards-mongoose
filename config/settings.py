@@ -167,11 +167,11 @@ REST_FRAMEWORK = {
     )
 }
 
-CORS_ALLOWED_ORIGIN = [
-    "http://127.0.0.1:9000",
-    "http://localhost:8080",
-    "http://localhost:3000",
-    "https://mongoosesocial.onrender.com"
-]
+# CORS_ALLOWED_ORIGIN = [
+#     "http://127.0.0.1:9000",
+#     "http://localhost:8080",
+#     "http://localhost:3000",
+#     "https://mongoosesocial.onrender.com"
+# ]
 
-# CORS_ALLOWED_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
