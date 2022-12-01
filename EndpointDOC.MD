@@ -208,3 +208,23 @@ PUT
 	"bio":"This is the same bio",
 	"name":"This is the same name"
 }
+---------------------------------------------------------
+/comments/
+
+GET
+
+{
+    "pk": "",
+    "comment_owner": "", 
+    "card": "",
+}
+
+POST
+
+{
+    "pk": "1",
+    "comment_owner": "Hatice", 
+    "card": "1",
+    "text": "Test a comment"
+}
+
