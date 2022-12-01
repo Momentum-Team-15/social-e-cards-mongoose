@@ -1,5 +1,7 @@
 Documentation for endpoints
 
+deploy url: https://mongoosesocial.onrender.com
+
 /cards/
 
 POST request
