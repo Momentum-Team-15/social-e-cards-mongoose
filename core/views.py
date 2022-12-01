@@ -48,18 +48,27 @@ class UserList(generics.ListCreateAPIView):
 
 
 
-class FavoriteList(generics.ListCreateAPIView):
+class FavoriteAdd(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = FavoriteSerializer
     queryset = Favorite.objects.all()
 
     def get_queryset(self):
-        queryset = Favorite.objects.filter(user=self.request.user)
-        return queryset
+        # serializer_class = CardSerializer
+        # queryset = Favorite.objects.filter(user=self.request.user).values_list('card')
+        return self.request.user.favorites.all()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+class FavoriteList(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CardSerializer
+    
+    def get_queryset(self):
+        queryset = self.request.user.favorites.all().values_list('card')
+        cardset = Card.objects.filter(pk__in=queryset).order_by('created_at')
+        return cardset
 
 
 class FriendList(generics.ListCreateAPIView):
@@ -74,18 +83,13 @@ class FriendList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class FriendCardList(generics.RetrieveAPIView):
+class FriendCardList(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CardSerializer
 
     def get_queryset(self):
-        queryset = Card.objects.none()
         friends = Friend.objects.filter(user=self.request.user).values_list('friend')
-        for friend in friends:
-            IndivCards = Card.objects.filter(user=friend)
-            queryset = queryset | IndivCards
-        
-        queryset.order_by('created_at')
+        queryset = Card.objects.filter(user__in=friends).order_by('created_at')
         return queryset
 
 

@@ -51,23 +51,38 @@ fields required:
 
 cards/favorite
 
-POST request
-
-fields required:
-
-{
-	"card": "<pk>"
-}
-
 GET request
-
+example response
 {
-	"card": <pk>,
-	"created_at": "",
-	"user": <pk>
-}
+	"title": "Christmas card",
+	"user": 1,
+	"font_color": "GREEN",
+	"color": "BLUE",
+	"card_msg": "This card has been updated",
+	"created_at": "2022-11-20T19:22:01.797201Z",
+	"updated_at": "2022-11-29T23:58:04.595171Z",
+	"published": false,
+	"text_alignment": "1",
+	"comments": []
+},
 ----------------
+cards/favorite/add
 
+POST
+{
+	"card":"<pk>"
+}
+
+GET
+example response
+{
+	"card": 2,
+	"created_at": "2022-11-30T23:50:38.722017Z",
+	"user": 17
+}
+
+
+----------------
 users/friend
 
 POST request
@@ -98,12 +113,8 @@ GET request
 Post Request
 
 {
-	"username": [
-		"This field is required."
-	],
-	"password": [
-		"This field is required."
-	]
+	"username":"This field is required.",
+	"password": "This field is required."
 }
 
 ----------------
